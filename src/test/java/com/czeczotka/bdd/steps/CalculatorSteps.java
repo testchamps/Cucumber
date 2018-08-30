@@ -1,5 +1,15 @@
 package com.czeczotka.bdd.steps;
 
+import javax.swing.text.Element;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
 import com.czeczotka.bdd.calculator.Calculator;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -13,29 +23,24 @@ public class CalculatorSteps {
 
     private Calculator calculator;
     
-    Element root=new Element("Results_Cucumber");
-    Document doc=new Document();
-
-    Element child1=new Element("TestCase1");
-    child1.addContent("Passed");
-    Element child2=new Element("TestCase2");
-    child1.addContent("Passed");
-    Element child3=new Element("TestCase3");
-    child3.addContent("Passed");
-
-    root.addContent(child1);
-    root.addContent(child2);
-    root.addContent(child3);
-
-    doc.setRootElement(root);
-
-    XMLOutputter outter=new XMLOutputter();
-    outter.setFormat(Format.getPrettyFormat());
-    outter.output(doc, new FileWriter(new File("testResults_Cucumber.xml")));
-    
     @Before
     public void setUp() {
         calculator = new Calculator();
+        
+        DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+        Document document = documentBuilder.newDocument();
+        
+        Element root = (Element) document.createElement("company");
+        document.appendChild((Node) root);
+     
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        javax.xml.transform.Transformer transformer = transformerFactory.newTransformer();
+        DOMSource domSource = new DOMSource(document);
+        StreamResult streamResult = new StreamResult();
+        transformer.transform(domSource, streamResult);
+        System.out.println("Done creating XML Results File");
+
     }
 
     @Given("^I have a calculator$")
