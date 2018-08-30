@@ -12,7 +12,27 @@ import static org.junit.Assert.assertNotNull;
 public class CalculatorSteps {
 
     private Calculator calculator;
+    
+    Element root=new Element("Results_Cucumber");
+    Document doc=new Document();
 
+    Element child1=new Element("TestCase1");
+    child1.addContent("Passed");
+    Element child2=new Element("TestCase2");
+    child1.addContent("Passed");
+    Element child3=new Element("TestCase3");
+    child3.addContent("Passed");
+
+    root.addContent(child1);
+    root.addContent(child2);
+    root.addContent(child3);
+
+    doc.setRootElement(root);
+
+    XMLOutputter outter=new XMLOutputter();
+    outter.setFormat(Format.getPrettyFormat());
+    outter.output(doc, new FileWriter(new File("testResults_Cucumber.xml")));
+    
     @Before
     public void setUp() {
         calculator = new Calculator();
