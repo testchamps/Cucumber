@@ -25,7 +25,7 @@ public class CalculatorSteps {
     private Calculator calculator;
     
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         calculator = new Calculator();
         
         final String xmlFilePath = "\\xmlResultFile.xml";
