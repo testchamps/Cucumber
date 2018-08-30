@@ -28,6 +28,7 @@ public class CalculatorSteps {
     public void setUp() {
         calculator = new Calculator();
         
+        final String xmlFilePath = "\\xmlResultFile.xml";
         DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
         Document document = documentBuilder.newDocument();
