@@ -1,16 +1,5 @@
 package com.czeczotka.bdd.steps;
 
-import javax.swing.text.Element;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-
 import com.czeczotka.bdd.calculator.Calculator;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -25,24 +14,9 @@ public class CalculatorSteps {
     private Calculator calculator;
     
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         calculator = new Calculator();
         
-        final String xmlFilePath = "\\xmlResultFile.xml";
-        DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-        Document document = documentBuilder.newDocument();
-        
-        Element root = (Element) document.createElement("company");
-        document.appendChild((Node) root);
-     
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        javax.xml.transform.Transformer transformer = transformerFactory.newTransformer();
-        DOMSource domSource = new DOMSource(document);
-        StreamResult streamResult = new StreamResult(new File(xmlFilePath));
-        transformer.transform(domSource, streamResult);
-        System.out.println("Done creating XML Results File");
-
     }
 
     @Given("^I have a calculator$")
